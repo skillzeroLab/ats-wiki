@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AGENTS.md</title>
+<style>body{margin:0;background:#f4ede4;color:#3a2f28;font:300 17px/1.8 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}main{max-width:860px;margin:0 auto;padding:48px 24px 80px}nav{font-size:14px;margin-bottom:28px;color:#8a7a6c}a{color:#b5654a}h1,h2,h3{font-weight:400}h2{border-top:2px solid #e2d6c8;padding-top:.8em}table{border-collapse:collapse;width:100%;font-size:15px}th,td{border-bottom:1px solid #e2d6c8;padding:.5em .6em;text-align:left;vertical-align:top}th{color:#8a7a6c}code{background:#ebe0d2;padding:0 .3em}</style></head><body><main><nav><a href="index.html">簡報</a> · <a href="wiki/index.html">Wiki 首頁</a> · <a href="logs/check-report-20261124.html">檢查紀錄</a></nav><h1>AGENTS.md：AI 履歷篩選（ATS）LLM Wiki 與教學簡報</h1>
+<p>作者：NTHU_AIMS_113005511_趙俊宗</p>
+<h2>1. 專案目標</h2>
+<ol>
+<li>建立主題為「AI 履歷篩選（ATS）與求職者應對」的 LLM Wiki，至少 ingest 5 篇資料。</li>
+<li>只使用 Wiki 內容，製作一份教學型 HTML 簡報，回答「公司怎麼用 AI 篩履歷？求職者該怎麼應對？」。</li>
+<li>目標讀者：完全沒有基礎的同學。讀完後能拿自己的履歷對照一份職缺，完成第一步檢查（關鍵字、格式）。</li>
+</ol>
+<h2>2. 你的角色與基本原則</h2>
+<ul>
+<li>你是研究助理，不是作者。所有事實都要能追溯到 <code>raw/</code> 的來源。</li>
+<li><strong>先討論、後生成</strong>：產生任何 Wiki 頁面或簡報之前，先向使用者提出大綱與疑問，取得確認後才動手。</li>
+<li>不確定就標註「待查證」，不要補上猜測的內容。</li>
+<li>簡報只能使用 Wiki 內的事實，不可加入 Wiki 以外的內容。</li>
+<li>每個檢查節點失敗時，退回上一步修正，同一節點最多重試 3 次。超過就停下來，向使用者說明卡在哪裡。</li>
+</ul>
+<h2>3. 目錄結構</h2>
+<p><code>raw/        原始資料的擷取筆記（一篇一個檔案，不修改；註明未讀到的部分，不當全文存檔）
+wiki/       LLM Wiki 頁面（markdown）
+  index.md  所有頁面清單與一句話說明
+  sources/  每篇來源一頁：出處、日期、可信度、重點摘要
+  concepts/ 概念頁（ATS、關鍵字比對、語意比對…）
+slides/     最終 HTML 簡報（單一檔案 index.html）
+logs/       每次執行的檢查報告（check-report-YYYYMMDD.md）</code></p>
+<h2>4. Wiki 頁面格式</h2>
+<p>每個頁面開頭要有 frontmatter：</p>
+<h2>```</h2>
+<p>title: 頁面標題
+sources: [來源頁檔名, ...]
+status: draft | checked
+updated: YYYY-MM-DD</p>
+<hr />
+<p>```</p>
+<p>內文規則：</p>
+<ul>
+<li>每個重要主張後面附上來源，例如 <code>（來源：sources/xxx.md）</code>。</li>
+<li>不同來源說法衝突時，並列呈現並標註，不要自行擇一。</li>
+<li>專有名詞第一次出現時用一句話白話解釋。</li>
+</ul>
+<p>預計的頁面：</p>
+<ol>
+<li>ATS 與 AI 篩選是什麼</li>
+<li>公司端怎麼運作（關鍵字比對、語意比對、排序）</li>
+<li>風險與爭議（偏見、透明度、相關法規）</li>
+<li>求職者端對策（履歷格式、關鍵字、對照職缺）</li>
+<li>常見迷思與限制</li>
+<li>來源清單</li>
+</ol>
+<h2>5. 工作流程（節點）</h2>
+<h3>節點 0：討論與定案</h3>
+<ul>
+<li>輸入：使用者的主題與目標。</li>
+<li>動作：提出 Wiki 頁面大綱與疑問，等使用者確認。</li>
+<li>輸出：確認後的大綱。</li>
+</ul>
+<h3>節點 1：取得資料</h3>
+<ul>
+<li>動作：搜尋並收集至少 5 篇資料，優先官方文件、第一手資料。存入 <code>raw/</code>。</li>
+<li>輸出：來源候選清單（標題、網址、日期、類型）。</li>
+</ul>
+<h3>檢查 1：來源可信度（在 ingest 之前）</h3>
+<ul>
+<li>[ ] 有明確出處與發布日期。</li>
+<li>[ ] 優先官方或第一手來源；行銷文章需標註。</li>
+<li>[ ] 日期過舊（超過 3 年）的需標註。</li>
+<li>[ ] 至少 5 篇，且不是同一來源的改寫。</li>
+<li>[ ] 引用的統計數字要追溯到最早出處；追不到的標「來源不明」。</li>
+<li>[ ] 法規與時程類資料要與官方資料核對，並確認沒有被新規定取代。</li>
+<li>未通過：換掉該來源，回到節點 1。</li>
+</ul>
+<h3>節點 2：Ingest 進 Wiki</h3>
+<ul>
+<li>動作：每篇來源建立 <code>wiki/sources/</code> 頁面，再更新相關概念頁與 <code>index.md</code>。</li>
+<li>輸出：Wiki 頁面（status: draft）。</li>
+</ul>
+<h3>檢查 2：Wiki 內容檢查</h3>
+<ul>
+<li>[ ] 每個主張都有來源標註。</li>
+<li>[ ] 摘要沒有加入原文沒有的內容（逐頁抽查原文對照；並用關鍵字 grep 確認數字、金額、日期、條號都出現在 raw/）。</li>
+<li>[ ] 不同頁面之間沒有互相矛盾。</li>
+<li>[ ] 專有名詞都有白話解釋。</li>
+<li>未通過：回到節點 2 修正該頁。通過後將 status 改為 checked。</li>
+</ul>
+<h3>節點 3：查詢 Wiki，產生簡報大綱</h3>
+<ul>
+<li>動作：只讀 <code>status: checked</code> 的頁面，產生簡報大綱（8～12 張）。</li>
+<li>輸出：大綱，每一點標註對應的 Wiki 頁面。</li>
+</ul>
+<h3>檢查 3：大綱檢查</h3>
+<ul>
+<li>[ ] 每一點都對應到 Wiki 頁面。</li>
+<li>[ ] 有回答核心問題與學習目標（第一步操作）。</li>
+<li>[ ] 順序適合新手：概念 → 運作 → 風險 → 怎麼做。</li>
+<li>未通過：回到節點 3。</li>
+</ul>
+<h3>節點 4：生成 HTML 簡報</h3>
+<ul>
+<li>規格：單一 <code>slides/index.html</code>，可直接在瀏覽器開啟、鍵盤左右鍵換頁；每張投影片底部標註來源頁面；用生活化比喻與簡單圖示；一張只講一個重點。</li>
+</ul>
+<h3>檢查 4：簡報檢查</h3>
+<ul>
+<li>[ ] 沒有出現 Wiki 以外的事實、數字、名稱。</li>
+<li>[ ] 每張投影片都有來源標註。</li>
+<li>[ ] 沒有基礎的人看得懂（無未解釋的名詞）。</li>
+<li>[ ] HTML 能正常開啟，換頁、排版沒有問題。</li>
+<li>未通過：回到節點 4；若問題出在內容來源，回到節點 2。</li>
+</ul>
+<h2>6. 檢查報告格式</h2>
+<p>每次執行都要寫 <code>logs/check-report-YYYYMMDD.md</code>，內容包含：</p>
+<ul>
+<li>每個檢查節點的結果（通過 / 未通過）與日期。</li>
+<li>未通過時：發現什麼問題、退回哪一步、重試第幾次。</li>
+<li>結尾統計：哪個節點出錯次數最多。</li>
+</ul>
+<h2>7. 禁止事項</h2>
+<ul>
+<li>不可編造來源、網址、數字或引文。</li>
+<li>不可修改 <code>raw/</code> 內的原始資料。</li>
+<li>不可在使用者確認大綱前直接生成 Wiki 或簡報。</li>
+<li>不可在檢查未通過時進入下一個節點。</li>
+</ul></main></body></html>

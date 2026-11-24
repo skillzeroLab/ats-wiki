@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 履歷篩選（ATS）與求職者應對</title>
+<style>
+:root{--bg:#f4ede4;--ink:#3a2f28;--mute:#8a7a6c;--acc:#b5654a;--warn:#a8553a;--card:#faf6f0;--line:#e2d6c8;--sand:#ebe0d2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-weight:300;overflow:hidden;letter-spacing:.02em}
+.slide{display:none;position:absolute;inset:0;padding:8vh 10vw 11vh;flex-direction:column;justify-content:center}
+.slide.on{display:flex}
+h1{font-size:clamp(30px,5vw,58px);font-weight:300;margin:0 0 .5em;line-height:1.3;letter-spacing:.04em}
+h2{font-size:clamp(24px,3.4vw,38px);font-weight:400;margin:0 0 .9em;color:var(--ink);position:relative;padding-top:.7em}
+h2::before{content:"";position:absolute;top:0;left:0;width:44px;height:2px;background:var(--acc)}
+p,li{font-size:clamp(16px,1.9vw,22px);line-height:1.8}ul{padding-left:1.1em;margin:.3em 0}li::marker{color:var(--acc)}b{font-weight:500}
+.sub{color:var(--mute)}.tag{display:inline-block;font-size:.68em;padding:.05em .7em;border-radius:99px;background:var(--sand);color:var(--acc);margin-left:.4em;vertical-align:middle}
+.tag.w{background:#f0dccf;color:var(--warn)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.card{background:var(--card);border-radius:6px;padding:22px 26px;border-top:2px solid var(--sand)}
+.card h3{margin:0 0 .4em;font-size:clamp(17px,2vw,24px);font-weight:500}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1em}.flow span{background:var(--card);border-radius:4px;padding:.45em .9em;font-size:clamp(14px,1.7vw,20px)}.flow i{font-style:normal;color:var(--acc)}
+table{border-collapse:collapse;width:100%;font-size:clamp(14px,1.6vw,19px)}th,td{border-bottom:1px solid var(--line);padding:.6em .8em;text-align:left;vertical-align:top}th{color:var(--mute);font-weight:400;border-bottom:1px solid var(--acc)}
+.src{position:absolute;left:10vw;right:10vw;bottom:4vh;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:.7em}
+.nav{position:fixed;right:24px;bottom:14px;font-size:13px;color:var(--mute)}
+.bar{position:fixed;left:0;top:0;height:3px;background:var(--acc);transition:width .2s}
+</style></head><body>
+<div class="bar" id="bar"></div>
+
+<section class="slide on">
+<h1>你的履歷，誰先看？</h1>
+<p>AI 履歷篩選（ATS）與求職者應對</p>
+<p class="sub">給完全沒基礎的人。讀完你能做到：拿一份職缺和自己的履歷對照，完成第一步檢查（關鍵字、格式）。</p>
+<p class="sub">NTHU_AIMS_113005511_趙俊宗</p>
+<div class="src">資料來源：本簡報只使用 LLM Wiki（20 份來源），見 wiki/index.md</div>
+</section>
+
+<section class="slide"><h2>ATS 是什麼</h2>
+<div class="cols">
+<div class="card"><h3>ATS＝收件與管理系統</h3><p>幫公司收履歷、整理、用學歷年資技能搜尋、追蹤進度。</p></div>
+<div class="card"><h3>AI＝部分系統的「排序功能」</h3><p>能理解意思相近的用語，產出適配摘要、排名。有的平台提供，有的不做。</p></div>
+<div class="card"><h3>普及率？</h3><p>沒有可靠的單一數字。「AI 已取代 ATS」與「多數還沒用 AI 排名」兩種說法並存。</p></div></div>
+<div class="src">Wiki：01 ATS 與 AI 篩選是什麼（src-06、07、08、09、12）</div></section>
+
+<section class="slide"><h2>公司端大致怎麼走</h2>
+<div class="flow"><span>投遞履歷</span><i>→</i><span>系統解析</span><i>→</i><span>knockout 問題</span><i>→</i><span>（部分平台）比對與排序</span><i>→</i><span>人工審閱</span><i>→</i><span>面試</span></div>
+<ul><li><b>Knockout 問題：</b>依你的答案直接取消資格，例如工作許可、必要證照。</li>
+<li><b>關鍵字：</b>業者說主要用在「搜尋資料庫」，不是篩新投遞的人。<span class="tag w">業者說法</span></li>
+<li><b>排序：</b>低分者可能根本沒被看到。<span class="tag w">業者說法</span></li></ul>
+<div class="src">Wiki：02 公司端怎麼運作（src-07、08、09）。各公司不同。</div></section>
+
+<section class="slide"><h2>你聽過的說法，可信嗎？</h2>
+<table><tr><th>說法</th><th>證據狀況</th></tr>
+<tr><td>「75% 履歷被系統淘汰」</td><td>多個來源追到 2012 年一家履歷服務公司的說法，無公開方法。→ 流傳很廣、來源不明，不當事實。</td></tr>
+<tr><td>「ATS 不會自動拒絕」</td><td>來源多為業者或個人意見；但 knockout 問題與排序仍會影響誰被看到。</td></tr>
+<tr><td>「AI 能偵測關鍵字堆砌」</td><td>兩處提到都沒附證據。→ 自然使用職缺用語即可。</td></tr>
+<tr><td>各種普及率數字</td><td>母體、題目都不同，不能互相比較。</td></tr></table>
+<p class="sub">讀數字的第一步：先問它是業者自述、二手轉述，還是官方。</p>
+<div class="src">Wiki：03 常見說法與矛盾（src-07、08、09、11、12、18）</div></section>
+
+<section class="slide"><h2>風險：合格的人可能被排除</h2>
+<ul><li>訓練資料與設計可能無意強化偏見，把合格者篩掉。<span class="tag">大學資源</span></li>
+<li>歐盟官方頁面指出：依分數排名的工具，可能使特定性別或身心障礙者被低排名。</li>
+<li>常被引用的亞馬遜案例（2014 建立、2018 停用）只有報導轉述，找不到原始資料。<span class="tag w">報導轉述</span></li>
+<li>求職者看不到：紐約研究發現公布的報告與告知很難找，也沒有解釋到求職者能據以行動。</li></ul>
+<p class="sub">這些是「可能」，不代表每個系統都有偏見。</p>
+<div class="src">Wiki：04 風險與偏見（src-01、05、06、07、18、20）</div></section>
+
+<section class="slide"><h2>法規 1：紐約市 Local Law 144</h2>
+<div class="cols"><div class="card"><h3>規定（已生效）</h3><ul><li>用自動化僱用工具前須做獨立偏差稽核，摘要須公布</li><li>使用前至少 10 個工作天通知應徵者</li></ul></div>
+<div class="card"><h3>執行有落差</h3><ul><li>州審計長：12 次打 311 測試只有 3 次轉到主管機關</li><li>研究：391 家雇主只找到 18 份稽核報告（約 5%）</li><li>沒公布不等於違規</li></ul></div></div>
+<div class="src">Wiki：05 法規現況（src-03、04、05）。FAQ 發布於 2023-06-29，細節以較新資料為準。</div></section>
+
+<section class="slide"><h2>法規 2：歐盟 AI Act</h2>
+<ul><li>用履歷與職缺比對產生分數、排名的工具，官方頁面舉為<b>高風險</b>的例子。</li>
+<li>求職者自己用的履歷調整工具，不在雇主招募規範範圍。</li>
+<li>獨立高風險系統義務延至 <b>2027-12-02</b>（2026 年 Digital Omnibus）。</li>
+<li>所以現在（2026-11）義務<b>尚未開始適用</b>；寫「2026 年 8 月起」的文章已過期。</li></ul>
+<div class="src">Wiki：05 法規現況（src-01、02、13）。最終條文原文待核對。</div></section>
+
+<section class="slide"><h2>法規 3：台灣</h2>
+<div class="cols">
+<div class="card"><h3>就業服務法第 5 條（已生效）</h3><p>雇主不得以性別、年齡、容貌等歧視求職人；招募不得要求提供非屬就業所需的隱私資料。條文未提 AI，適用是解讀。</p></div>
+<div class="card"><h3>人工智慧基本法（2026-01-14）</h3><p>原則性規定，含「公平與不歧視」。<b>沒有罰則</b>，高風險認定標準尚未訂；各機關 2028-01 前訂管理規範。</p></div>
+<div class="card"><h3>勞動部指引</h3><p>「雇主運用 AI 及勞工權益保障指引（草案）」仍在研擬，屬參考性質。<span class="tag w">二手報導</span></p></div></div>
+<p class="sub">業者文章說「招募篩選屬高風險 AI」，但官方文本未列，本簡報不採用。</p>
+<div class="src">Wiki：05 法規現況、07 台灣脈絡（src-14、15、16、17、20）。就服法全文本輪未能從官方頁面讀取。</div></section>
+
+<section class="slide"><h2>你的第一步：職缺 × 履歷</h2>
+<ol style="font-size:clamp(18px,2.4vw,28px);line-height:1.9"><li>圈出職缺中的技能、工具、證照、職稱用語</li><li>檢查履歷：<b>真正做過</b>的，有沒有用相同或相近的詞寫出來；沒做過的，不要硬加</li><li>檢查格式（下一頁）</li></ol>
+<p class="sub">多個來源都建議依職缺客製，並自然對應用語、避免堆砌。</p>
+<div class="src">Wiki：06 求職者對策（src-06、08、09、12）</div></section>
+
+<section class="slide"><h2>格式檢查清單</h2>
+<table><tr><th>項目</th><th>建議</th></tr>
+<tr><td>版面</td><td>單欄、標準標題、簡單字型；避免表格、文字方塊、嵌入圖片；聯絡資訊別放頁首頁尾</td></tr>
+<tr><td>檔案</td><td>先遵守雇主指示；來源略有差異：PDF 或 .docx（Huntr）／多數情況 .docx（Jobscan）</td></tr>
+<tr><td>成果</td><td>寫可衡量的成果，不只是工作內容</td></tr>
+<tr><td>Knockout 題</td><td>如實回答工作許可、證照等問題</td></tr>
+<tr><td>用 AI 起草</td><td>可以，但加入自己的經驗與可佐證的數字</td></tr>
+<tr><td>台灣</td><td>雇主不得要求非就業所需的隱私資料</td></tr></table>
+<p class="sub">版面與檔案建議多來自業者，屬業者說法。</p>
+<div class="src">Wiki：06 求職者對策（src-06、07、08、09、14）</div></section>
+
+<section class="slide"><h2>還不確定的事</h2>
+<ul><li>台灣企業實際用 ATS／AI 篩選的比例：沒有可靠統計</li>
+<li>歐盟最終條文、台灣就服法官方全文、個資法條文：尚未逐條核對</li>
+<li>多數實務建議出自業者，沒有獨立驗證</li>
+<li>勞動部 AI 指引：仍是草案</li></ul>
+<p class="sub">來源：20 份，其中 7 份檢查 1 完全通過、13 份為條件通過（業者、二手或官方但有限制），詳見檢查紀錄。</p>
+<div class="src">Wiki：03、05、07 的「限制」段落</div></section>
+
+<div class="nav"><span id="n">1</span> / <span id="t"></span> ← → 切換</div>
+<script>
+const s=[...document.querySelectorAll('.slide')];let i=0;
+function go(k){i=Math.max(0,Math.min(s.length-1,k));s.forEach((e,j)=>e.classList.toggle('on',j===i));n.textContent=i+1;bar.style.width=((i+1)/s.length*100)+'%'}
+t.textContent=s.length;go(0);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))go(i+1);if(['ArrowLeft','PageUp'].includes(e.key))go(i-1)});
+addEventListener('click',e=>go(e.clientX>innerWidth/2?i+1:i-1));
+</script></body></html>
